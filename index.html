@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>加藤先生の品川統一記</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="game-container"></div>
+
+    <div id="ui-layer">
+      <div id="status-bar">
+        <span>加藤先生 (Lv.1)</span>
+        <span id="influence">品川支配率: 0%</span>
+        <span id="karma">評判: 普通</span>
+      </div>
+      
+      <div id="action-menu" class="hidden">
+        <p id="target-name">通行人</p>
+        <button onclick="window.gameAction('talk')">話しかける (友好)</button>
+        <button onclick="window.gameAction('bribe')">金を渡す (-1000円)</button>
+        <button onclick="window.gameAction('punch')">殴る (暴力)</button>
+        <button onclick="window.closeMenu()">無視する</button>
+      </div>
+
+      <div id="message-box" class="hidden">
+        <p id="message-text">ここにテキストが表示されます。</p>
+        <button onclick="window.closeMessage()">閉じる</button>
+      </div>
+    </div>
+
+    <div id="mobile-controls">
+      <div id="dpad-up" class="dpad-btn">▲</div>
+      <div class="dpad-row">
+        <div id="dpad-left" class="dpad-btn">◀</div>
+        <div id="dpad-right" class="dpad-btn">▶</div>
+      </div>
+      <div id="dpad-down" class="dpad-btn">▼</div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

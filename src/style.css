@@ -1,0 +1,141 @@
+:root {
+  --main-color: #2c3e50;
+  --accent-color: #e74c3c;
+  --text-color: #ecf0f1;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  overflow: hidden;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  user-select: none;
+}
+
+#game-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+#ui-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  pointer-events: none; /* UI以外の場所のクリックはゲームに通す */
+}
+
+#status-bar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  display: flex;
+  gap: 15px;
+  border-left: 5px solid var(--accent-color);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* 行動メニュー (NPCに近づくと出る) */
+#action-menu {
+  position: absolute;
+  bottom: 20%;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: auto;
+  border: 2px solid #fff;
+  width: 200px;
+}
+
+#action-menu p {
+  color: #fff;
+  margin: 0 0 10px 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+button {
+  background: var(--main-color);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: var(--accent-color);
+}
+
+/* メッセージボックス */
+#message-box {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  background: rgba(0, 0, 0, 0.85);
+  border: 2px solid var(--accent-color);
+  padding: 15px;
+  pointer-events: auto;
+  color: white;
+}
+
+/* スマホ用コントローラー */
+#mobile-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 20;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* PCでは非表示にする（JavaScriptで制御も可能だがCSSで簡易対応） */
+@media (min-width: 1024px) {
+  #mobile-controls { display: none; }
+}
+
+.dpad-row {
+  display: flex;
+  gap: 10px;
+}
+
+.dpad-btn {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  user-select: none;
+}
+.dpad-btn:active {
+  background: rgba(255, 255, 255, 0.5);
+}
