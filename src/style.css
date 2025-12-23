@@ -11,6 +11,7 @@ body {
   overflow: hidden;
   font-family: "Helvetica Neue", Arial, sans-serif;
   user-select: none;
+  touch-action: none; /* スマホでの誤スクロール防止 */
 }
 
 #game-container {
@@ -22,14 +23,15 @@ body {
   z-index: 1;
 }
 
+/* UIレイヤー：ここを最前面(z-index: 100)にします */
 #ui-layer {
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 10;
-  pointer-events: none; /* UI以外の場所のクリックはゲームに通す */
+  z-index: 100; 
+  pointer-events: none;
 }
 
 #status-bar {
@@ -44,98 +46,119 @@ body {
   display: flex;
   gap: 15px;
   border-left: 5px solid var(--accent-color);
+  pointer-events: auto; /* ここはクリックできるように */
 }
 
 .hidden {
   display: none !important;
 }
 
-/* 行動メニュー (NPCに近づくと出る) */
+/* 行動メニュー */
 #action-menu {
   position: absolute;
-  bottom: 20%;
+  top: 50%;         /* 画面中央 */
   right: 20px;
-  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.95);
   padding: 20px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   pointer-events: auto;
   border: 2px solid #fff;
-  width: 200px;
+  width: 220px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.8);
 }
 
 #action-menu p {
   color: #fff;
-  margin: 0 0 10px 0;
+  margin: 0 0 5px 0;
   text-align: center;
   font-weight: bold;
+  font-size: 18px;
+  border-bottom: 1px solid #555;
+  padding-bottom: 10px;
 }
 
 button {
   background: var(--main-color);
   color: white;
   border: none;
-  padding: 10px;
+  padding: 12px;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 16px;
+  transition: 0.2s;
 }
 
-button:hover {
+button:active {
   background: var(--accent-color);
+  transform: scale(0.95);
 }
 
-/* メッセージボックス */
+/* メッセージボックス：位置を少し上げて、コントローラーと被らないように */
 #message-box {
   position: absolute;
-  bottom: 20px;
+  bottom: 35%; /* 下から35%の位置に上げる */
   left: 50%;
   transform: translateX(-50%);
-  width: 80%;
-  background: rgba(0, 0, 0, 0.85);
+  width: 85%;
+  background: rgba(0, 0, 0, 0.9);
   border: 2px solid var(--accent-color);
-  padding: 15px;
+  padding: 20px;
   pointer-events: auto;
   color: white;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.8);
 }
 
-/* スマホ用コントローラー */
+#message-text {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+/* スマホ用コントローラー：UIより後ろ(z-index: 50)にします */
 #mobile-controls {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-  z-index: 20;
+  bottom: 30px;
+  left: 30px;
+  z-index: 50;
   pointer-events: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  opacity: 0.8; /* 少し透けさせる */
 }
-/* PCでは非表示にする（JavaScriptで制御も可能だがCSSで簡易対応） */
+
 @media (min-width: 1024px) {
   #mobile-controls { display: none; }
 }
 
 .dpad-row {
   display: flex;
-  gap: 10px;
+  gap: 15px;
 }
 
 .dpad-btn {
-  width: 50px;
-  height: 50px;
-  background: rgba(255, 255, 255, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.4);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
-  font-size: 20px;
+  font-size: 24px;
   cursor: pointer;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
+
 .dpad-btn:active {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(231, 76, 60, 0.5); /* 押した時に赤く光る */
 }
